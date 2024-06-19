@@ -1,0 +1,44 @@
+create database campeonato;
+
+create table modalidade(
+    codigo  int(5)  not null,
+    nome    varchar(50) not null,
+    treinador varchar(50)   not null,
+    primary key(codigo)
+);
+
+create table atleta(
+    codigo  int(5)  not null,
+    nome    varchar(50) not null,
+    peso    float(6,3)  not null,
+    altura  float(3,2)  not null,
+    codigoModalidade    int(5)  not null,
+    primary key(codigo),
+    foreign key(codigoModalidade)   references modalidade(codigo);
+);
+
+create table campeonato(
+    codigo  int(5)  not null,
+    dia    date    not null,
+    lugar   varchar(50) not null,
+    cidade  varchar(50) not null,
+    estado  char(2)  not null,
+    pais    varchar(50) not null,
+    codigoAtleta    int(5)  not null,
+    primary key(codigo),
+    foreign key(codigoAtleta)   references atleta(codigo);
+);
+
+#------------------------------------------------------------------------------
+
+alter table modalidade
+add preparador  varchar(50) not null;
+alter table modalidade
+drop nome   varchar(50) not null;
+alter table modalidade
+alter nome  varchar(100)    not null;
+
+#-----------------------------------------------------------------------------
+
+drop    modalidade;
+drop    campeonato;
